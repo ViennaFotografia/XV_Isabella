@@ -173,32 +173,91 @@
             filter: sepia(0.85) hue-rotate(5deg) saturate(1.4) brightness(0.95); 
         }
 
-        /* Imágenes */
-        .foto-principal {
-            width: 75%;
-            border-radius: 50%;
-            box-shadow: 0 10px 20px rgba(20, 51, 37, 0.25);
-            margin: 20px 0;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border: 2px solid var(--color-vestido);
-        }
-
+        /* Imágenes - Marco Real Verde Esmeralda y Dorado */
         .foto-container {
             position: relative;
-            width: 78%;
-            margin: 20px auto;
+            width: 82%;
+            max-width: 340px;
+            aspect-ratio: 1 / 1;
+            margin: 30px auto;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .marco-gif {
+        /* Resplandor suave detrás de la foto */
+        .foto-glow {
+            position: absolute;
+            width: 82%;
+            height: 82%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.45) 0%, rgba(18, 46, 34, 0.25) 60%, transparent 75%);
+            animation: pulsePhotoGlow 3.5s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Foto circular con doble borde real */
+        .foto-principal {
+            width: 74%;
+            height: 74%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2;
+            border: 3.5px solid #d4af37;
+            outline: 4px solid #122e22;
+            box-shadow: 0 10px 25px rgba(10, 28, 20, 0.45), inset 0 0 15px rgba(0, 0, 0, 0.25);
+            margin: 0;
+        }
+
+        /* SVG del Aro de Filigrana y Corona */
+        .marco-real-svg {
             position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: contain; 
-            pointer-events: none; 
+            top: 0;
+            left: 0;
+            z-index: 3;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .aro-giro-horario {
+            transform-origin: 150px 150px;
+            animation: spinRingCW 32s linear infinite;
+        }
+
+        .aro-giro-antihorario {
+            transform-origin: 150px 150px;
+            animation: spinRingCCW 24s linear infinite;
+        }
+
+        .destello-estrella {
+            transform-origin: center;
+            animation: starTwinkle 2.2s ease-in-out infinite alternate;
+        }
+        .destello-estrella.delay-1 { animation-delay: 0.7s; }
+        .destello-estrella.delay-2 { animation-delay: 1.4s; }
+
+        @keyframes spinRingCW {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinRingCCW {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes pulsePhotoGlow {
+            0%, 100% { transform: scale(0.96); opacity: 0.7; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+
+        @keyframes starTwinkle {
+            0% { opacity: 0.25; transform: scale(0.75); }
+            100% { opacity: 1; transform: scale(1.2); }
         }
 
         /* Botones */
@@ -324,30 +383,121 @@
             background-color: var(--color-vestido);
         }
 
-        /* Botón de Audio Flotante */
+        /* Botón de Audio Flotante (Estilo Medallón Real Verde y Oro) */
         #fixed-items {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 22px;
+            right: 22px;
             z-index: 1000;
-        }
-        #toggleButton {
-            background: var(--color-fondo-botones);
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            color: #ffffff;
-            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        #toggleButton {
+            position: relative;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #2d5a43 0%, #122e22 70%, #0a1c14 100%);
+            border: 2.5px solid #d4af37;
+            box-shadow: 0 5px 15px rgba(10, 28, 20, 0.45), 0 0 12px rgba(212, 175, 55, 0.4), inset 0 0 8px rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            outline: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Onda de pulso dorada exterior (activa cuando suena la música) */
+        #toggleButton::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(212, 175, 55, 0.75);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Aro interior de filigrana punteada */
+        #toggleButton::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            border: 1.2px dashed rgba(243, 229, 171, 0.65);
+            pointer-events: none;
             transition: transform 0.3s ease;
         }
+
         #toggleButton:hover {
-            transform: scale(1.1);
+            transform: scale(1.08);
+            box-shadow: 0 6px 18px rgba(10, 28, 20, 0.6), 0 0 20px rgba(212, 175, 55, 0.75);
+        }
+
+        /* Icono SVG interno */
+        .audio-icon-svg {
+            width: 26px;
+            height: 26px;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+            z-index: 2;
+        }
+
+        /* Elementos del icono (ondas y línea de silencio) */
+        .sound-wave {
+            opacity: 0;
+            transform-origin: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .mute-slash {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        /* --- Estado Activo: Música Reproduciéndose (.is-playing) --- */
+        #toggleButton.is-playing::before {
+            animation: audioPulseRing 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        #toggleButton.is-playing::after {
+            animation: audioSpinFiligree 12s linear infinite;
+        }
+
+        #toggleButton.is-playing .audio-icon-svg {
+            animation: noteBeat 1.8s ease-in-out infinite;
+        }
+
+        #toggleButton.is-playing .sound-wave {
+            opacity: 1;
+            animation: waveBlink 1.5s ease-in-out infinite alternate;
+        }
+
+        #toggleButton.is-playing .mute-slash {
+            opacity: 0;
+        }
+
+        @keyframes audioPulseRing {
+            0% { transform: scale(0.95); opacity: 0.9; }
+            75%, 100% { transform: scale(1.45); opacity: 0; }
+        }
+
+        @keyframes audioSpinFiligree {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes noteBeat {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.08) rotate(-4deg); }
+        }
+
+        @keyframes waveBlink {
+            0% { opacity: 0.35; }
+            100% { opacity: 1; }
         }
 
         /* Estilos de la sección de ubicaciones */
@@ -386,63 +536,276 @@
             margin-top: 10px;
         }
 
-        /* --- Estilos para la Cubierta de la Invitación --- */
+        /* --- Estilos y Animaciones para la Cubierta de la Invitación --- */
+        #cover-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
         .cover-panel {
             position: fixed; 
             left: 0;
             width: 100%;
             height: 50%; 
-            background: radial-gradient(circle at center, var(--color-verde-principal) 0%, var(--color-cubierta) 100%);
+            background: radial-gradient(circle at center, #2d5a43 0%, #122e22 75%, #0a1c14 100%);
             z-index: 9998; 
             box-sizing: border-box; 
-            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1), box-shadow 1.8s ease;
+        }
+
+        /* Marco interior dorado en los paneles */
+        .cover-panel::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            right: 15px;
+            border: 1.5px solid rgba(212, 175, 55, 0.45);
+            pointer-events: none;
         }
 
         #cover-top {
             bottom: 50%; 
-            border-bottom: 2px solid var(--color-vestido);
+            justify-content: flex-end;
+            padding-bottom: 75px;
+            border-bottom: 2px solid var(--color-acento-claro, #d4af37);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+        #cover-top::before {
+            top: 15px;
+            bottom: 0;
+            border-bottom: none;
+            border-radius: 15px 15px 0 0;
         }
 
         #cover-bottom {
             top: 50%; 
-            border-top: 2px solid var(--color-vestido);
+            justify-content: flex-start;
+            padding-top: 85px;
+            border-top: 2px solid var(--color-acento-claro, #d4af37);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+        }
+        #cover-bottom::before {
+            bottom: 15px;
+            top: 0;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
         }
 
-        #cover-top.opened { transform: translateY(-100%); }
-        #cover-bottom.opened { transform: translateY(100%); }
+        #cover-top.opened { transform: translateY(-105%); }
+        #cover-bottom.opened { transform: translateY(105%); }
 
+        /* Textos de la cubierta */
+        .cover-subtitle {
+            font-family: var(--fuente-nombres, 'Bellefair', serif);
+            color: #f3e5ab;
+            font-size: 1.1rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin: 0 0 5px 0;
+            opacity: 0.9;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        .cover-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.2rem;
+            margin: 0;
+            background: linear-gradient(90deg, #d4af37 0%, #fff6d1 50%, #aa771c 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.45));
+            animation: shimmerGold 4s linear infinite, fadeInUp 1.4s ease-out;
+            line-height: 1.1;
+            padding: 0 15px;
+        }
+
+        .cover-instruction {
+            font-family: var(--fuente-nombres, 'Bellefair', serif);
+            color: #fceec5;
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin: 8px 0 5px 0;
+            animation: pulseText 2s ease-in-out infinite;
+        }
+
+        .cover-date {
+            font-family: var(--fuente-texto, 'Cormorant Garamond', serif);
+            color: var(--color-acento-claro, #d4af37);
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            margin-top: 8px;
+            opacity: 0.85;
+        }
+
+        /* Ornamentos de esquina en la cubierta */
+        .cover-ornament {
+            position: absolute;
+            width: 65px;
+            height: 65px;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        .orn-tl { top: 22px; left: 22px; }
+        .orn-tr { top: 22px; right: 22px; transform: scaleX(-1); }
+        .orn-bl { bottom: 22px; left: 22px; transform: scaleY(-1); }
+        .orn-br { bottom: 22px; right: 22px; transform: scale(-1, -1); }
+
+        /* Haz de luz dorado al abrir */
+        #golden-beam {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scaleX(0);
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, transparent 0%, #d4af37 20%, #ffffff 50%, #d4af37 80%, transparent 100%);
+            box-shadow: 0 0 25px 8px rgba(255, 223, 100, 0.9);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+        }
+        #golden-beam.beam-active {
+            transform: translate(-50%, -50%) scaleX(1);
+            opacity: 1;
+        }
+        #golden-beam.beam-fade {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        /* Contenedor del Sello / Botón Central */
         #play-button-container {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%); 
             z-index: 10000; 
-            transition: opacity 0.5s ease;
-        }
-
-        .play-button {
-            width: 100px;
-            height: 100px;
-            background: var(--color-fondo-botones); 
-            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            border: 4px solid #ffffff; 
-            transition: transform 0.3s ease;
-            box-shadow: 0 0 25px rgba(184, 134, 11, 0.5);
+            transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .play-button:hover { transform: scale(1.1); }
+        .pulse-ring {
+            position: absolute;
+            width: 115px;
+            height: 115px;
+            border-radius: 50%;
+            border: 2px solid rgba(227, 190, 82, 0.65);
+            animation: pulseGlow 2.6s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            pointer-events: none;
+        }
+        .pulse-ring.delay { animation-delay: 1.3s; }
 
-        .play-icon {
+        .filigree-ring {
+            position: absolute;
+            width: 138px;
+            height: 138px;
+            animation: rotateSlow 18s linear infinite;
+            pointer-events: none;
+        }
+
+        .play-button {
+            width: 108px;
+            height: 108px;
+            background: radial-gradient(circle at 30% 30%, #fbe69b 0%, #d4af37 45%, #996d07 85%, #6e4e02 100%);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: 3px solid #fff8dc; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.7), inset 0 0 12px rgba(255, 255, 255, 0.6);
+            position: relative;
+        }
+
+        .play-button::after {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+        }
+
+        .play-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(255, 223, 100, 0.95), inset 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        .seal-crown {
+            width: 30px;
+            height: auto;
+            margin-bottom: -2px;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+        }
+
+        .seal-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #122e22;
+            line-height: 1;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+            margin-bottom: 2px;
+        }
+
+        .seal-play-mini {
             width: 0;
             height: 0;
-            border-top: 22px solid transparent;
-            border-bottom: 22px solid transparent;
-            border-left: 36px solid #ffffff; 
-            margin-left: 8px;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 10px solid #122e22;
+            margin-left: 3px;
+        }
+
+        #play-button-container.unlocking {
+            transform: translate(-50%, -50%) scale(1.35) rotate(12deg);
+            filter: brightness(1.35);
+        }
+        #play-button-container.unlocking-fade {
+            transform: translate(-50%, -50%) scale(0.2);
+            opacity: 0;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.95); opacity: 0.9; }
+            70%, 100% { transform: scale(1.55); opacity: 0; }
+        }
+        @keyframes rotateSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes shimmerGold {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.55; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 0.9; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- Animaciones al hacer scroll --- */
@@ -658,11 +1021,65 @@
 </head>
 <body>
 
-    <div id="cover-top" class="cover-panel"></div>
-    <div id="cover-bottom" class="cover-panel"></div>
+    <!-- LIENZO DE PARTÍCULAS DORADAS -->
+    <canvas id="cover-particles"></canvas>
+
+    <!-- PANEL SUPERIOR DE LA CUBIERTA -->
+    <div id="cover-top" class="cover-panel">
+        <svg class="cover-ornament orn-tl" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 95V20C5 11.7157 11.7157 5 20 5H95" stroke="#d4af37" stroke-width="3"/>
+            <path d="M15 80V25C15 19.4772 19.4772 15 25 15H80" stroke="#f3e5ab" stroke-width="1.5"/>
+            <circle cx="25" cy="25" r="4" fill="#d4af37"/>
+        </svg>
+        <svg class="cover-ornament orn-tr" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 95V20C5 11.7157 11.7157 5 20 5H95" stroke="#d4af37" stroke-width="3"/>
+            <path d="M15 80V25C15 19.4772 19.4772 15 25 15H80" stroke="#f3e5ab" stroke-width="1.5"/>
+            <circle cx="25" cy="25" r="4" fill="#d4af37"/>
+        </svg>
+
+        <p class="cover-subtitle">Mis XV Años</p>
+        <h2 class="cover-title">Isabella</h2>
+    </div>
+
+    <!-- HAZ DE LUZ DORADO CENTRAL -->
+    <div id="golden-beam"></div>
+
+    <!-- PANEL INFERIOR DE LA CUBIERTA -->
+    <div id="cover-bottom" class="cover-panel">
+        <p class="cover-instruction">✨ Toca el sello para abrir ✨</p>
+        <p class="cover-date">16 · ENERO · 2027</p>
+
+        <svg class="cover-ornament orn-bl" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 95V20C5 11.7157 11.7157 5 20 5H95" stroke="#d4af37" stroke-width="3"/>
+            <path d="M15 80V25C15 19.4772 19.4772 15 25 15H80" stroke="#f3e5ab" stroke-width="1.5"/>
+            <circle cx="25" cy="25" r="4" fill="#d4af37"/>
+        </svg>
+        <svg class="cover-ornament orn-br" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 95V20C5 11.7157 11.7157 5 20 5H95" stroke="#d4af37" stroke-width="3"/>
+            <path d="M15 80V25C15 19.4772 19.4772 15 25 15H80" stroke="#f3e5ab" stroke-width="1.5"/>
+            <circle cx="25" cy="25" r="4" fill="#d4af37"/>
+        </svg>
+    </div>
+
+    <!-- SELLO CENTRAL INTERACTIVO -->
     <div id="play-button-container">
-        <div class="play-button" id="cover-play-button">
-            <div class="play-icon"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring delay"></div>
+        
+        <svg class="filigree-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="92" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.8"/>
+            <circle cx="100" cy="100" r="84" fill="none" stroke="#fff6d1" stroke-width="1" stroke-dasharray="3 9" opacity="0.6"/>
+        </svg>
+
+        <div class="play-button" id="cover-play-button" title="Abrir Invitación">
+            <svg class="seal-crown" viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 34L12 12L25 23L32 6L39 23L52 12L58 34H6Z" fill="#122e22" stroke="#fff8dc" stroke-width="1.5"/>
+                <circle cx="32" cy="4" r="3" fill="#122e22"/>
+                <circle cx="10" cy="9" r="2.5" fill="#122e22"/>
+                <circle cx="54" cy="9" r="2.5" fill="#122e22"/>
+            </svg>
+            <span class="seal-text">XV</span>
+            <div class="seal-play-mini"></div>
         </div>
     </div>
 
@@ -702,8 +1119,78 @@
                 </div>
                           
                 <div class="foto-container animate-on-scroll">
+                    <div class="foto-glow"></div>
                     <img class="foto-principal" src="foto_principal.jpg" alt="Foto de Isabella">
-                    <img class="marco-gif" src="aro-brillo.gif" alt="Marco brillante">
+                    
+                    <!-- Marco Real Animado en SVG (Filigrana + Corona + Destellos) -->
+                    <svg class="marco-real-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="oroMarcoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#fff6d1" />
+                                <stop offset="35%" stop-color="#d4af37" />
+                                <stop offset="70%" stop-color="#996d07" />
+                                <stop offset="100%" stop-color="#fbe69b" />
+                            </linearGradient>
+                            <filter id="sombraMarcoOro" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#0a1c14" flood-opacity="0.45"/>
+                            </filter>
+                        </defs>
+
+                        <!-- Aro exterior de filigrana (Giro horario) -->
+                        <g class="aro-giro-horario">
+                            <circle cx="150" cy="150" r="134" fill="none" stroke="url(#oroMarcoGrad)" stroke-width="1.8" stroke-dasharray="12 6 3 6" opacity="0.9"/>
+                            <circle cx="150" cy="16" r="3.5" fill="#fff6d1"/>
+                            <circle cx="150" cy="284" r="3.5" fill="#fff6d1"/>
+                            <circle cx="16" cy="150" r="3.5" fill="#fff6d1"/>
+                            <circle cx="284" cy="150" r="3.5" fill="#fff6d1"/>
+                        </g>
+
+                        <!-- Aro intermedio perlado con esmeraldas (Giro antihorario) -->
+                        <g class="aro-giro-antihorario">
+                            <circle cx="150" cy="150" r="124" fill="none" stroke="url(#oroMarcoGrad)" stroke-width="1.5" stroke-dasharray="3 9" opacity="0.85"/>
+                            <polygon points="150,22 154,26 150,30 146,26" fill="#2d5a43" stroke="#fff6d1" stroke-width="1"/>
+                            <polygon points="150,270 154,274 150,278 146,274" fill="#2d5a43" stroke="#fff6d1" stroke-width="1"/>
+                            <polygon points="22,150 26,154 30,150 26,146" fill="#2d5a43" stroke="#fff6d1" stroke-width="1"/>
+                            <polygon points="270,150 274,154 278,150 274,146" fill="#2d5a43" stroke="#fff6d1" stroke-width="1"/>
+                        </g>
+
+                        <!-- Anillo sólido interno con bisel -->
+                        <circle cx="150" cy="150" r="117" fill="none" stroke="url(#oroMarcoGrad)" stroke-width="2" filter="url(#sombraMarcoOro)"/>
+
+                        <!-- Corona Real Superior con Esmeraldas -->
+                        <g filter="url(#sombraMarcoOro)" transform="translate(150, 20)">
+                            <path d="M-24,14 L-18,-4 L-8,6 L0,-10 L8,6 L18,-4 L24,14 Z" fill="url(#oroMarcoGrad)" stroke="#122e22" stroke-width="1.2"/>
+                            <circle cx="0" cy="-13" r="2.5" fill="#fff6d1"/>
+                            <circle cx="-19" cy="-7" r="2" fill="#fff6d1"/>
+                            <circle cx="19" cy="-7" r="2" fill="#fff6d1"/>
+                            <!-- Joyas esmeralda en la base de la corona -->
+                            <circle cx="0" cy="8" r="2.3" fill="#122e22" stroke="#fff6d1" stroke-width="0.6"/>
+                            <circle cx="-11" cy="9" r="1.8" fill="#122e22" stroke="#fff6d1" stroke-width="0.5"/>
+                            <circle cx="11" cy="9" r="1.8" fill="#122e22" stroke="#fff6d1" stroke-width="0.5"/>
+                        </g>
+
+                        <!-- Arabesco / Medallón Inferior -->
+                        <g filter="url(#sombraMarcoOro)" transform="translate(150, 278)">
+                            <path d="M-32,-4 Q0,12 32,-4 Q0,4 -32,-4 Z" fill="url(#oroMarcoGrad)"/>
+                            <polygon points="0,-5 6,2 0,9 -6,2" fill="#122e22" stroke="url(#oroMarcoGrad)" stroke-width="1.5"/>
+                            <circle cx="-16" cy="1" r="2.2" fill="#fff6d1"/>
+                            <circle cx="16" cy="1" r="2.2" fill="#fff6d1"/>
+                        </g>
+
+                        <!-- Destellos estelares animados -->
+                        <g class="destello-estrella" transform="translate(42, 65)">
+                            <path d="M0,-9 L2,-2 L9,0 L2,2 L0,9 L-2,2 L-9,0 L-2,-2 Z" fill="#fff6d1"/>
+                        </g>
+                        <g class="destello-estrella delay-1" transform="translate(258, 75)">
+                            <path d="M0,-8 L1.8,-1.8 L8,0 L1.8,1.8 L0,8 L-1.8,1.8 L-8,0 L-1.8,-1.8 Z" fill="#fff6d1"/>
+                        </g>
+                        <g class="destello-estrella delay-2" transform="translate(48, 235)">
+                            <path d="M0,-7 L1.5,-1.5 L7,0 L1.5,1.5 L0,7 L-1.5,1.5 L-7,0 L-1.5,-1.5 Z" fill="#fff6d1"/>
+                        </g>
+                        <g class="destello-estrella delay-1" transform="translate(252, 230)">
+                            <path d="M0,-9 L2,-2 L9,0 L2,2 L0,9 L-2,2 L-9,0 L-2,-2 Z" fill="#fff6d1"/>
+                        </g>
+                    </svg>
                 </div>
                 
                 <p class="texto animate-on-scroll" style="font-style: italic; padding: 0 20px;">
@@ -949,10 +1436,28 @@
     </div>
 
     <div id="fixed-items">
-        <button id="toggleButton" onclick="toggleAudio()">
-            🎵
+        <button id="toggleButton" onclick="toggleAudio()" title="Música de fondo">
+            <svg class="audio-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="goldAudioGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#fff6d1" />
+                        <stop offset="50%" stop-color="#d4af37" />
+                        <stop offset="100%" stop-color="#aa771c" />
+                    </linearGradient>
+                </defs>
+                <!-- Nota musical dorada -->
+                <path d="M9 18V6L19 4V16" stroke="url(#goldAudioGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="6.5" cy="18" r="2.5" fill="url(#goldAudioGrad)"/>
+                <circle cx="16.5" cy="16" r="2.5" fill="url(#goldAudioGrad)"/>
+                
+                <!-- Destellos / Ondas al reproducir -->
+                <path class="sound-wave" d="M21 8.5C22.2 9.8 22.2 12.2 21 13.5" stroke="#fff6d1" stroke-width="1.5" stroke-linecap="round"/>
+                <circle class="sound-wave" cx="4" cy="9" r="1" fill="#fff6d1"/>
+
+                <!-- Línea diagonal cuando está en silencio (pausado) -->
+                <line class="mute-slash" x1="3" y1="3" x2="21" y2="21" stroke="#f3e5ab" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
         </button>
-        <!-- Canción: Photograph - Ed Sheeran -->
         <audio id="music" loop>
             <source src="Ed Sheeran - Photograph.mp3" type="audio/mpeg">
         </audio>
@@ -1020,38 +1525,150 @@
         function toggleAudio() {
             if (estaReproduciendo) {
                 reproductor.pause();
-                botonAudio.innerHTML = "🔇";
+                botonAudio.classList.remove("is-playing");
             } else {
                 reproductor.play();
-                botonAudio.innerHTML = "🎵";
+                botonAudio.classList.add("is-playing");
             }
             estaReproduciendo = !estaReproduciendo;
         }
         
         // Iniciar audio con la primera interacción del usuario
+        // --- Sistema de Partículas Doradas y Animación de Apertura ---
+        const canvas = document.getElementById('cover-particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animacionActiva = true;
+
+        function ajustarCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', ajustarCanvas);
+        ajustarCanvas();
+
+        const coloresOro = ['#d4af37', '#fff6d1', '#f3e5ab', '#e3be52', '#b8860b'];
+
+        for (let i = 0; i < 45; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2.8 + 1,
+                speedX: (Math.random() - 0.5) * 0.4,
+                speedY: -Math.random() * 0.7 - 0.2,
+                color: coloresOro[Math.floor(Math.random() * coloresOro.length)],
+                alpha: Math.random() * 0.8 + 0.2,
+                twinkleSpeed: Math.random() * 0.02 + 0.005,
+                burst: false
+            });
+        }
+
+        function explosionDorada() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            for (let i = 0; i < 85; i++) {
+                const angulo = Math.random() * Math.PI * 2;
+                const velocidad = Math.random() * 9 + 2;
+                particles.push({
+                    x: centerX,
+                    y: centerY,
+                    size: Math.random() * 4 + 1.5,
+                    speedX: Math.cos(angulo) * velocidad,
+                    speedY: Math.sin(angulo) * velocidad,
+                    color: coloresOro[Math.floor(Math.random() * coloresOro.length)],
+                    alpha: 1,
+                    decay: Math.random() * 0.015 + 0.008,
+                    burst: true
+                });
+            }
+        }
+
+        function animarParticulas() {
+            if (!animacionActiva) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.burst) {
+                    p.speedY += 0.08;
+                    p.speedX *= 0.98;
+                    p.alpha -= p.decay;
+                    if (p.alpha <= 0) {
+                        particles.splice(i, 1);
+                        continue;
+                    }
+                } else {
+                    p.alpha += p.twinkleSpeed;
+                    if (p.alpha > 1 || p.alpha < 0.2) p.twinkleSpeed *= -1;
+                    if (p.y < -10) {
+                        p.y = canvas.height + 10;
+                        p.x = Math.random() * canvas.width;
+                    }
+                }
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, p.alpha);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#d4af37';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            requestAnimationFrame(animarParticulas);
+        }
+        animarParticulas();
+
+        // Iniciar audio y apertura con la primera interacción del usuario
         const coverTop = document.getElementById('cover-top');
         const coverBottom = document.getElementById('cover-bottom');
         const coverPlayButton = document.getElementById('cover-play-button');
         const playButtonContainer = document.getElementById('play-button-container');
+        const goldenBeam = document.getElementById('golden-beam');
 
         document.body.style.overflow = 'hidden';
 
         playButtonContainer.addEventListener('click', () => {
             coverPlayButton.style.pointerEvents = 'none';
-            playButtonContainer.style.opacity = '0';
-            coverTop.classList.add('opened');
-            coverBottom.classList.add('opened');
+            playButtonContainer.style.pointerEvents = 'none';
 
             if (reproductor.paused) {
                 reproductor.volume = 0.5; 
                 toggleAudio();
             }
 
+            // Fase 1: Giro del sello, haz de luz y explosión de partículas
+            playButtonContainer.classList.add('unlocking');
+            goldenBeam.classList.add('beam-active');
+            explosionDorada();
+
+            // Fase 2: Abrir paneles tras el destello (600ms después)
             setTimeout(() => {
+                playButtonContainer.classList.remove('unlocking');
+                playButtonContainer.classList.add('unlocking-fade');
+                goldenBeam.classList.add('beam-fade');
+                coverTop.classList.add('opened');
+                coverBottom.classList.add('opened');
+            }, 600);
+
+            // Fase 3: Desvanecer lienzo de partículas y activar scroll
+            setTimeout(() => {
+                canvas.style.opacity = '0';
+            }, 1600);
+
+            setTimeout(() => {
+                animacionActiva = false;
                 document.body.style.overflow = 'auto';
                 playButtonContainer.style.display = 'none';
                 coverTop.style.display = 'none';
                 coverBottom.style.display = 'none';
+                goldenBeam.style.display = 'none';
+                canvas.style.display = 'none';
 
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -1069,7 +1686,7 @@
                 
                 elementsToAnimate.forEach(el => observer.observe(el)); 
                 elementsToAnimateSides.forEach(el => observer.observe(el)); 
-            }, 1800); 
+            }, 2400); 
         });
 
         // 5. Lógica para pausar la música si la pestaña no está visible
