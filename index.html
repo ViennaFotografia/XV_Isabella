@@ -81,21 +81,32 @@
             z-index: 10; 
             pointer-events: none; 
         }
-        .top-left { top: -15px; left: -35px; }
+        .top-left { 
+            top: 5px; 
+            left: -15px;
+        }
         .top-right {
-            top: -15px;
-            right: -35px;
-            transform: scaleX(-1); 
+            top: 0px;
+            right: -15px;
+            transform: scaleX(-1);
+        }
+        .rotate-left {
+            rotate: -25deg;
+        }
+        .rotate-right {
+            rotate: 25deg;
         }
         .bottom-left {
-            bottom: -35px;
-            left: -35px;
+            bottom: -15px;
+            left: -15px;
+            rotate: -25deg;
             transform: scaleY(-1); 
         }
         .bottom-right {
-            bottom: -35px;
-            right: -35px;
-            transform: scaleX(-1) scaleY(-1); 
+            bottom: -15px;
+            right: -15px;
+            transform: scaleX(-1) scaleY(-1);
+            rotate: 25deg;
         }
         .side-flower-container {
             display: flex; 
@@ -179,7 +190,7 @@
             width: 82%;
             max-width: 340px;
             aspect-ratio: 1 / 1;
-            margin: 30px auto;
+            margin: 10px auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -1085,10 +1096,9 @@
 
     <div class="background-container">
         <div class="container">
-            <img src="flor2.png" alt="Decoración floral" class="corner-flower top-left">
-            <img src="flor2.png" alt="Decoración floral" class="corner-flower top-right">
-            <img src="flor2.png" alt="Decoración floral" class="corner-flower bottom-left">
-            <img src="flor2.png" alt="Decoración floral" class="corner-flower bottom-right">
+            <img src="moño2.png" alt="Decoración floral" class="corner-flower top-left rotate-left">
+            <img src="moño2.png" alt="Decoración floral" class="corner-flower top-right rotate-right">
+            
             
             <section id="portada">
                 <div style="position: relative; width: 95%; margin: 0 auto;" class="animate-on-scroll">
@@ -1235,12 +1245,12 @@
                     <text x="600" y="150" class="texto-2">de Honor</text>
                 </svg>
                 <img class="separador-decorativo animate-on-scroll" src="1_separador.webp" alt="separador">
-                <p class="nombres-familiares-1 animate-on-scroll">Diego Arellano Fuentes</p>
+                <p class="nombres-familiares-1 animate-on-scroll">Javier Adrián Meza Galán</p>
             </section>
 
             <div class="side-flower-container">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-left" style="width: 70px;">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-right" style="width: 70px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-left rotate-left" style="width: 80px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-right rotate-right" style="width: 80px;">
             </div>
 
             <section>
@@ -1272,8 +1282,8 @@
             </section>
 
             <div class="side-flower-container">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-left" style="width: 70px;">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-right" style="width: 70px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-left rotate-left" style="width: 80px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-right rotate-right" style="width: 80px;">
             </div>
 
             <section>
@@ -1323,7 +1333,7 @@
                     <div class="itinerario-item animate-on-scroll">
                         <div class="itinerario-texto">
                             <span class="itinerario-titulo">¡Gracias por venir!</span>
-                            <span class="itinerario-hora">12:00 AM</span>
+                            <span class="itinerario-hora">2:00 AM</span>
                         </div>
                         <div class="itinerario-icono-wrapper">
                             <div class="itinerario-icono">
@@ -1345,8 +1355,8 @@
             </section>
 
             <div class="side-flower-container">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-left" style="width: 70px;">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-right" style="width: 70px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-left rotate-left" style="width: 80px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-right rotate-right" style="width: 80px;">
             </div>
             
             <section>
@@ -1360,8 +1370,8 @@
             </section>
             
             <div class="side-flower-container">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-left" style="width: 70px;">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-right" style="width: 70px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-left rotate-left" style="width: 80px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide-in-right rotate-right" style="width: 80px;">
             </div>
             
             <section class="animate-on-scroll">
@@ -1385,8 +1395,8 @@
             </section>
 
             <div class="side-flower-container">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-left" style="width: 70px;">
-                <img src="flor2.png" alt="Decoración floral" class="animate-slide-in-right" style="width: 70px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide top-left rotate-left" style="width: 80px;">
+                <img src="moño2.png" alt="Decoración floral" class="animate-slide top-right rotate-right" style="width: 80px;">
             </div>
             
             <section class="animate-on-scroll">
